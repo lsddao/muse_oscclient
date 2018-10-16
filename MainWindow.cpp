@@ -1,8 +1,8 @@
 #include <QtWidgets>
-
-#include "MainWindow.h"
+#include <QDateTime>
 #include <QtConcurrent>	
 
+#include "MainWindow.h"
 #include "CSVWriter.h"
 
 MainWindow::MainWindow()
@@ -44,14 +44,14 @@ void MainWindow::initEEGSession()
 	_session.setData(_handler.data());
 	_model.setEEGData(_handler.data());
 
-	_session.addDataConsumer(new CSVWriter("text.csv", &_model));
+	_session.addDataConsumer(new CSVWriter(QString("session_%1.csv").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss")), &_model));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* ev)
 {
 	if (ev->key() == Qt::Key_MediaNext)
 	{
-
+		_model.setEventTriggered();
 	}
 }
 

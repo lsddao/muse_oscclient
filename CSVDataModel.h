@@ -16,6 +16,8 @@ namespace eeg
 		virtual QString columnName(short columnId) = 0;
 		virtual QString data(short columnId) = 0;
 
+		virtual void resetAllEvents() = 0;
+
 	protected:
 		const Data* _data{ nullptr };
 	};

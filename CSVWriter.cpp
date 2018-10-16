@@ -6,7 +6,7 @@ eeg::CSVWriter::CSVWriter(const QString& fileName, ICSVDataModel* model)
 	: _file(fileName)
 	, _model(model)
 {
-	_file.open(QIODevice::Append);
+	_file.open(QIODevice::WriteOnly);
 	_stream.setDevice(&_file);
 }
 
@@ -24,6 +24,7 @@ void eeg::CSVWriter::consume()
 		_headerWritten = true;
 	}
 	writeRow();
+	_model->resetAllEvents();
 }
 
 void eeg::CSVWriter::writeHeader()

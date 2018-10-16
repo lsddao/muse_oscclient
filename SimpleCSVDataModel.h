@@ -8,7 +8,12 @@ namespace eeg
 class TestDataModel : public ICSVDataModel
 {
 public:
-	short columnCount() override { return 3; }
+	bool eventTriggered() { return _eventTriggered; }
+
+	void setEventTriggered() { _eventTriggered = true; }
+	void resetAllEvents() override { _eventTriggered = false; }
+
+	short columnCount() override { return 4; }
 
 	QString columnName(short columnId)
 	{
@@ -17,6 +22,7 @@ public:
 		case 0: return "ContactQuality_LeftForehead";
 		case 1: return "ContactQuality_RightForehead";
 		case 2: return "Frontal_Asymmetry";
+		case 3: return "Event_NextTrackPressed";
 		default: return QString();
 		}
 	}
@@ -41,10 +47,17 @@ public:
 
 			return QString::number(diff);
 		}
+		case 3:
+		{
+			return QString::number(_eventTriggered ? 1 : 0);
+		}
 		default:
 			return QString();
 		}
 	}
+
+protected:
+	bool _eventTriggered{ false };
 };
 
 };
