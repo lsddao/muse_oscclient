@@ -10,23 +10,25 @@ namespace eeg
 	{
 	public:
 		DataHandler(int port = 7000)
-			: _port(port)
+			: _s(IpEndpointName(IpEndpointName::ANY_ADDRESS, port), &_listener)
 		{
 		}
 
 		void run()
 		{
-			UdpListeningReceiveSocket s(
-				IpEndpointName(IpEndpointName::ANY_ADDRESS, _port),
-				&_listener);
-			s.RunUntilSigInt();
+			_s.Run();
+		}
+
+		void stop()
+		{
+			_s.Break();
 		}
 
 		const Data* data() { return &_listener._data; }
 
 	protected:
+		UdpListeningReceiveSocket _s;
 		EEGPacketListener _listener;
-		int _port;
 	};
 };
 

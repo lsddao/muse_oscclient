@@ -1,7 +1,6 @@
 #include "EEGSession.h"
 
-eeg::EEGSession::EEGSession(const Data* data)
-	: _data(data)
+eeg::EEGSession::EEGSession()
 {
 }
 

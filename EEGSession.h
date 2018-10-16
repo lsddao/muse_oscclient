@@ -11,9 +11,10 @@ namespace eeg
 	class EEGSession
 	{
 	public:
-		EEGSession(const Data* data);
+		EEGSession();
 		virtual ~EEGSession();
 
+		void setData(const Data* data) { _data = data; }
 		void addDataConsumer(IDataConsumer* consumer);
 
 		void start(int syncIntervalMs = 1000);

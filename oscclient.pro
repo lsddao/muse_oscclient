@@ -1,12 +1,8 @@
 TEMPLATE = app
-CONFIG += console
+CONFIG += windows
 TARGET = oscclient
 DEPENDPATH += .
-QT += core concurrent
-
-TARGET_EXT = .exe
-
-DEFINES += UNICODE _UNICODE WIN32 _CONSOLE NOMINMAX
+QT += core concurrent widgets gui
 
 LIBS += Ws2_32.lib Winmm.lib
 
@@ -15,7 +11,8 @@ include(osc.pri)
 SOURCES +=	main.cpp \
 			EEGDataConsumer.cpp \
 			CSVWriter.cpp \
-			EEGSession.cpp
+			EEGSession.cpp \
+			MainWindow.cpp
 
 HEADERS +=	EEGData.h \
 			EEGDataHandler.h \
@@ -24,4 +21,5 @@ HEADERS +=	EEGData.h \
 			CSVWriter.h \
 			EEGSession.h \
 			CSVDataModel.h \
-			SimpleCSVDataModel.h
+			SimpleCSVDataModel.h \
+			MainWindow.h
