@@ -6,6 +6,7 @@
 #include "SimpleCSVDataModel.h"
 
 class QPushButton;
+class QLabel;
 
 class MainWindow : public QWidget
 {
@@ -18,6 +19,7 @@ public:
 public slots:
 	void startSession();
 	void stopSession();
+	void updateStatus();
 
 protected:
 	void setupUi();
@@ -29,6 +31,8 @@ private:
 	QPushButton* btnStartSession;
 	QPushButton* btnStopSession;
 	QPushButton* quitButton;
+
+	QLabel* lblStatus;
 
 	eeg::DataHandler _handler;
 	eeg::EEGSession _session;

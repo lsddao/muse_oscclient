@@ -17,6 +17,7 @@ namespace eeg
 		void setData(const Data* data) { _data = data; }
 		void addDataConsumer(IDataConsumer* consumer);
 
+		bool running() { return _timer.isActive(); }
 		void start(int syncIntervalMs = 1000);
 		void stop();
 
