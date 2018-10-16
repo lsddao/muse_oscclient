@@ -1,0 +1,11 @@
+*.suo
+*.stash
+*.vcxproj
+*.filters
+*.cbt
+*.obj
+*.pdb
+debug/
+release/
+*.user
+*.sln
