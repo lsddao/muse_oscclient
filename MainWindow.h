@@ -20,6 +20,7 @@ public slots:
 	void startSession();
 	void stopSession();
 	void updateStatus();
+	void nextTrack();
 
 protected:
 	void setupUi();
@@ -31,6 +32,7 @@ private:
 	QPushButton* btnStartSession;
 	QPushButton* btnStopSession;
 	QPushButton* quitButton;
+	QPushButton* btnNext;
 
 	QLabel* lblStatus;
 

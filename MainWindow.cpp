@@ -5,6 +5,8 @@
 #include "MainWindow.h"
 #include "CSVWriter.h"
 
+#include <windows.h>
+
 MainWindow::MainWindow()
 {
 	setupUi();
@@ -33,11 +35,15 @@ void MainWindow::setupUi()
 	btnStopSession = new QPushButton("Stop session");
 	connect(btnStopSession, SIGNAL(clicked()), this, SLOT(stopSession()));
 
+	btnNext = new QPushButton("Next track");
+	connect(btnNext, SIGNAL(clicked()), this, SLOT(nextTrack()));
+
 	QVBoxLayout *btnLayout = new QVBoxLayout;
 	btnLayout->addWidget(btnStartSession);
 	btnLayout->addWidget(btnStopSession);
+	btnLayout->addWidget(btnNext);
 	btnLayout->addWidget(quitButton);
-
+	
 	QHBoxLayout* mainLayout = new QHBoxLayout;
 	mainLayout->addWidget(lblStatus);
 	mainLayout->addLayout(btnLayout);
@@ -57,13 +63,34 @@ void MainWindow::initEEGSession()
 	_session.addDataConsumer(new CSVWriter(QString("session_%1.csv").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss")), &_model));
 }
 
+void MainWindow::nextTrack()
+{
+	INPUT ip;
+
+	// Set up a generic keyboard event.
+	ip.type = INPUT_KEYBOARD;
+	ip.ki.wScan = 0; // hardware scan code for key
+	ip.ki.time = 0;
+	ip.ki.dwExtraInfo = 0;
+	ip.ki.wVk = VK_MEDIA_NEXT_TRACK; 
+	ip.ki.dwFlags = 0; // 0 for key press
+	SendInput(1, &ip, sizeof(INPUT));
+
+	// Release key
+	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+	SendInput(1, &ip, sizeof(INPUT));
+
+	_model.setEventTriggered();
+	updateStatus();
+}
+
 void MainWindow::keyPressEvent(QKeyEvent* ev)
 {
-	if (ev->key() == Qt::Key_MediaNext)
+	/*if (ev->key() == Qt::Key_MediaNext)
 	{
 		_model.setEventTriggered();
 		updateStatus();
-	}
+	}*/
 }
 
 void MainWindow::startSession()
