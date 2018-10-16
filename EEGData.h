@@ -23,7 +23,6 @@ namespace eeg
 				for (short band = Delta; band < FrequencyBand_Last; ++band)
 					absoluteFreq[channel][band] = 0;
 			}
-			absoluteFreq[EEG2][Beta] = 0.5;
 		}
 
 		bool touchingForehead{ false };
