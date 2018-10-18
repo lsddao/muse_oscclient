@@ -106,12 +106,13 @@ void MainWindow::stopSession()
 void MainWindow::updateStatus()
 {
 	lblStatus->setText(
-		QString("Session: %1\nNext track pressed: %2\nTouching forehead: %3\nContact quality L: %4\nContact quality R: %5\nBeta power L-R: %6\n")
+		QString("Session: \t\t%1\nNext track pressed: \t%2\nTouching forehead: \t%3\nContact quality(L): \t%4\nContact quality(R): \t%5\nEEG_good(L): \t\t%6\nEEG_good(R): \t\t%7")
 		.arg(_session.running() ? "running" : "stopped")
 		.arg(_model.eventTriggered() ? "true" : "false")
-		.arg(_handler.data()->touchingForehead ? "ok" : "bad")
+		.arg(_handler.data()->touchingForehead ? "true" : "false")
 		.arg((int) _handler.data()->quality[eeg::Data::EEG2])
 		.arg((int) _handler.data()->quality[eeg::Data::EEG3])
-		.arg(_model.data(2))
+		.arg(_handler.data()->isEegGood[eeg::Data::EEG2] ? "true" : "false")
+		.arg(_handler.data()->isEegGood[eeg::Data::EEG3] ? "true" : "false")
 	);
 }
