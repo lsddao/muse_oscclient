@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QFuture>
 
 #include "EEGSession.h"
 #include "SimpleCSVDataModel.h"
@@ -39,4 +40,6 @@ private:
 	eeg::DataHandler _handler;
 	eeg::EEGSession _session;
 	eeg::TestDataModel _model;
+
+	QFuture<void> _thread;
 };

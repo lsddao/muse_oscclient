@@ -21,7 +21,7 @@ namespace eeg
 
 		void stop()
 		{
-			_s.Break();
+			_s.AsynchronousBreak();
 		}
 
 		const Data* data() { return &_listener._data; }

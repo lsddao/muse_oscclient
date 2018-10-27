@@ -19,7 +19,8 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-	//_handler.stop();
+	_handler.stop();
+	_thread.waitForFinished();
 }
 
 void MainWindow::setupUi()
@@ -55,7 +56,7 @@ void MainWindow::initEEGSession()
 	using namespace eeg;
 
 	// start listening
-	QtConcurrent::run([&]() { this->_handler.run(); });
+	_thread = QtConcurrent::run([&]() { this->_handler.run(); });
 
 	_session.setData(_handler.data());
 	_model.setEEGData(_handler.data());
