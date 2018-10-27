@@ -10,3 +10,6 @@ release/
 *.user
 *.sln
 *.csv
+*.db
+*.opendb
+*.ipch
